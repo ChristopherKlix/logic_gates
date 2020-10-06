@@ -1,31 +1,11 @@
 from logic_gates import and_gate, or_gate, nand_gate, nor_gate, xor_gate
+from get_input_values import get_input_values
 
 
 def add_numbers():
-    # define constants
-    AMOUNT_ADDENDS = 2
-    # create a 0-valued list of size AMOUNT_ADDENDS
-    # i.e. input_values = [0, 0]
-    input_values = [ 0 for i in range(AMOUNT_ADDENDS) ]
+    input_values = get_input_values()
 
-    # prompt user for input
-    for i in range(AMOUNT_ADDENDS):
-        while True:
-            input_value = int(input(f'{chr(i + 97)}: '))
-            # check if input value is positive
-            if input_value < 0:
-                print(f'[{input_value}] Found negative integer.')
-                print('Only positive inputs are allowed.', end='\n\n')
-            # check if input value is 4 bit
-            elif len(bin(input_value).lstrip('-0b')) > 4:
-                print(f'[{input_value}] Found 5 bit integer.')
-                print('Only 4 bit inputs are allowed.', end='\n\n')
-            else:
-                input_values[i] = input_value
-                break
-
-    print(f'decimal values: {input_values}')
-    for i in range(AMOUNT_ADDENDS):
+    for i in range(len(input_values)):
         # convert to decimals to binary strings
         input_values[i] = f'{input_values[i]:04b}'
         # store individual bin int in list and reverses it
@@ -35,10 +15,9 @@ def add_numbers():
         # convert string bin int to actual int
         for j in range(len(input_values[i])):
             input_values[i][j] = int(input_values[i][j])
-    
-    print(f'binary values (reversed): {input_values}')
-    # initialize sum and carry
-    sum = list()
+
+    # initialize out_sum and carry
+    out_sum = list()
     carry = 0
 
     for i in range(4):
@@ -52,25 +31,24 @@ def add_numbers():
         # reassign carry
         carry = new_carry
         # store calculate out
-        sum.append(out)
-        print(f'{i} -- a: {input_values[0][i]} b: {input_values[1][i]} out: {out} carry: {carry}')
+        out_sum.append(out)
 
     if carry == 1:
-        sum.append(carry)
+        out_sum.append(carry)
 
-    # convert binary sum to decimal integer
-    sum = sum[::-1]
-    print(sum)
+    # convert binary out_sum to decimal integer
+    out_sum = out_sum[::-1]
     bin_sum = '0b'
-    for i in range(len(sum)):
-        bin_sum = bin_sum + str(sum[i])
-    print(int(bin_sum, 2))
+    for i in range(len(out_sum)):
+        bin_sum = bin_sum + str(out_sum[i])
     
     return int(bin_sum, 2)
 
 
-def subtract_numbers(input_a, input_b):
-    input_values = [input_a, input_b]
+def subtract_numbers():
+    print_subtract_instructions()
+
+    input_values = get_input_values()
 
     for i in range(len(input_values)):
         # convert to decimals to binary strings
@@ -83,7 +61,7 @@ def subtract_numbers(input_a, input_b):
         for j in range(len(input_values[i])):
             input_values[i][j] = int(input_values[i][j])
 
-    sum = list()
+    out_difference = list()
     borrow = 0
 
     for i in range(4):
@@ -95,18 +73,25 @@ def subtract_numbers(input_a, input_b):
         out = xor_gate(out, borrow)
         borrow = new_borrow
 
-        print(f'out: {out}, borrow: {new_borrow}')
-        sum.append(out)
+        out_difference.append(out)
     
     if borrow == 1:
-        sum.append(borrow)
+        out_difference.append(borrow)
     
     # convert binary sum to decimal integer
-    sum = sum[::-1]
-    print(sum)
-    bin_sum = '0b'
-    for i in range(len(sum)):
-        bin_sum = bin_sum + str(sum[i])
-    print(int(bin_sum, 2))
+    out_difference = out_difference[::-1]
+    bin_difference = '0b'
+    for i in range(len(out_difference)):
+        bin_difference = bin_difference + str(out_difference[i])
     
-    return int(bin_sum, 2)
+    return int(bin_difference, 2)
+
+
+def print_subtract_instructions():
+    print('\n  ' + '-' * 30)
+    print('  subtract two numbers')
+    print('  ' + '-' * 30)
+    print('  this is a 4 bit \'full subtractor\'')
+    print('  only 4 bit inputs allowed')
+    print('  no negative numbers supported')
+    print('\n  ----------\n  a - b = out', end='\n\n')

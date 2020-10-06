@@ -1,30 +1,31 @@
 from sys import argv
 import re
+# dependencies bundled in import file for cleaner code
 from imports import *
 
 
 def main():
-    print('[run] [compare] [add] [explain] [help]')
+    print('[run] [compare] [add] [subtract] [explain] [help]')
     program = input('program ')
+    
     if re.search(r'^compare$', program):
         compare()
     elif re.search(r'^run$', program):
         run()
     elif re.search(r'^add$', program):
-        add_numbers()
+        out = add_numbers()
+        print(f'out: {out}')
+    elif re.search(r'^subtract$', program):
+        out = subtract_numbers()
+        print(f'out: {out}')
     elif re.search(r'^explain$', program):
         explain()
     elif re.search(r'^help$', program):
         help_custom()
-
-
-def help_custom():
-    print('\n  [run] lets you try different logic gates')
-    print('\n  [compare] shows truth tables for all logic gates')
-    print('\n  [add] lets you add two numbers by using logic gates')
-    print('\n  [explain] browse explanations of each logic gate')
-    print('')
-    main()
+        main()
+    else:
+        print('no such program')
+        main()
 
 
 def run():
@@ -79,9 +80,11 @@ if __name__ == "__main__":
         elif re.search(r'^run$', argv[1]):
             run()
         elif re.search(r'^add$', argv[1]):
-            add_numbers()
+            out = add_numbers()
+            print(f'out: {out}')
         elif re.search(r'^subtract$', argv[1]):
-            subtract_numbers(6, 4)
+            out = subtract_numbers()
+            print(f'out: {out}')
         else:
             print(f'no argument called [{argv[1]}].')
     else:
