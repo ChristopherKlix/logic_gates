@@ -3,6 +3,8 @@ from get_input_values import get_input_values
 
 
 def add_numbers():
+    print_add_instructions()
+    
     input_values = get_input_values()
 
     for i in range(len(input_values)):
@@ -85,6 +87,16 @@ def subtract_numbers():
         bin_difference = bin_difference + str(out_difference[i])
     
     return int(bin_difference, 2)
+
+
+def print_add_instructions():
+    print('\n  ' + '-' * 30)
+    print('  add two numbers')
+    print('  ' + '-' * 30)
+    print('  this is a 4 bit \'full adder\'')
+    print('  only 4 bit inputs allowed')
+    print('  no negative numbers supported')
+    print('\n  ----------\n  a - b = out', end='\n\n')
 
 
 def print_subtract_instructions():
