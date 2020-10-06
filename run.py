@@ -1,7 +1,5 @@
-from sys import argv
-import re
-
-# local dependencies bundled in import file for cleaner code
+# dependencies for run.py
+# bundled in import file for cleaner code
 from imports import *
 
 
@@ -24,57 +22,32 @@ is a Python reserved keyword (like print()).
 
 
 def main():
-    color_print('blue', '[run] [compare] [add] [subtract] [explain] [help]')
-    # print('[run] [compare] [add] [subtract] [explain] [help]')
+    color_print('blue', '[try] [compare] [add] [subtract] [explain] [help] [quit]')
+    # print('[try] [compare] [add] [subtract] [explain] [help] [quit]')
     
-    program = input('program ')
+    program = input(f'\033[0mprogram ')
 
     if re.search(r'^compare$', program):
         compare()
-    elif re.search(r'^run$', program):
-        run()
+    elif re.search(r'^try$', program):
+        try_custom()
     elif re.search(r'^add$', program):
         out = add_numbers()
-        print(f'out: {out}')
+        print(f'out: {out}', end='\n\n')
     elif re.search(r'^subtract$', program):
         out = subtract_numbers()
-        print(f'out: {out}')
+        print(f'out: {out}', end='\n\n')
     elif re.search(r'^explain$', program):
         explain()
     elif re.search(r'^help$', program):
         help_custom()
         main()
+    elif re.search(r'^quit$', program):
+        print('\n  Thanks for using logic_gates!', end='\n\n')
+        exit(0)
     else:
         print('no such program')
         main()
-
-
-def run():
-    # set input values a and b
-    a = set_value('a')
-    b = set_value('b')
-
-    # print corresponding state of logic gate
-    # using 'ternary'
-    output = and_gate(a, b)
-    print('AND-gate: ', end=' ')
-    print('on' if output else 'off')
-
-    output = or_gate(a, b)
-    print('OR-gate: ', end='  ')
-    print('on' if output else 'off')
-
-    output = nand_gate(a, b)
-    print('NAND-gate: ', end='')
-    print('on' if output else 'off')
-
-    output = nor_gate(a, b)
-    print('NOR-gate: ', end=' ')
-    print('on' if output else 'off')
-
-    output = xor_gate(a, b)
-    print('XOR-gate: ', end=' ')
-    print('on' if output else 'off')
 
 
 if __name__ == "__main__":
@@ -82,13 +55,13 @@ if __name__ == "__main__":
         if re.search(r'^compare$', argv[1]):
             compare()
         elif re.search(r'^run$', argv[1]):
-            run()
+            try_custom()
         elif re.search(r'^add$', argv[1]):
             out = add_numbers()
-            print(f'out: {out}')
+            print(f'out: {out}', end='\n\n')
         elif re.search(r'^subtract$', argv[1]):
             out = subtract_numbers()
-            print(f'out: {out}')
+            print(f'out: {out}', end='\n\n')
         else:
             print(f'no argument called [{argv[1]}].')
 
