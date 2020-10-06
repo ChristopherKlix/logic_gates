@@ -1,5 +1,8 @@
+from color_print import color_print
+
+
 def explain():
-    print('[AND] [OR] [NAND] [NOR] [XOR]')
+    color_print('blue', '[AND] [OR] [XOR] [NAND] [NOR]')
     input_gate = input('gate ')
     if input_gate == 'and':
         print('\n' + '-' * 12)
