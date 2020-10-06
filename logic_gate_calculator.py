@@ -67,3 +67,46 @@ def add_numbers():
     print(int(bin_sum, 2))
     
     return int(bin_sum, 2)
+
+
+def subtract_numbers(input_a, input_b):
+    input_values = [input_a, input_b]
+
+    for i in range(len(input_values)):
+        # convert to decimals to binary strings
+        input_values[i] = f'{input_values[i]:04b}'
+        # store individual bin int in list and reverses it
+        # therefore list index 0 is base 2^0
+        input_values[i] = list(input_values[i])[::-1]
+
+        # convert string bin int to actual int
+        for j in range(len(input_values[i])):
+            input_values[i][j] = int(input_values[i][j])
+
+    sum = list()
+    borrow = 0
+
+    for i in range(4):
+        out = xor_gate(input_values[0][i], input_values[1][i])
+        
+        new_borrow = and_gate(not input_values[0][i], input_values[1][i])
+        new_borrow = or_gate(and_gate(not out, borrow), new_borrow)
+
+        out = xor_gate(out, borrow)
+        borrow = new_borrow
+
+        print(f'out: {out}, borrow: {new_borrow}')
+        sum.append(out)
+    
+    if borrow == 1:
+        sum.append(borrow)
+    
+    # convert binary sum to decimal integer
+    sum = sum[::-1]
+    print(sum)
+    bin_sum = '0b'
+    for i in range(len(sum)):
+        bin_sum = bin_sum + str(sum[i])
+    print(int(bin_sum, 2))
+    
+    return int(bin_sum, 2)

@@ -1,20 +1,30 @@
 from sys import argv
 import re
-from logic_gates import and_gate, or_gate, nand_gate, nor_gate, xor_gate
-from logic_gate_calculator import add_numbers
-from compare import compare
-from explain import explain
+from imports import *
 
 
 def main():
-    print('[run] [compare] [explain]')
+    print('[run] [compare] [add] [explain] [help]')
     program = input('program ')
-    if 'compare' in program:
+    if re.search(r'^compare$', program):
         compare()
-    elif 'run' in program:
+    elif re.search(r'^run$', program):
         run()
-    elif 'explain' in program:
+    elif re.search(r'^add$', program):
+        add_numbers()
+    elif re.search(r'^explain$', program):
         explain()
+    elif re.search(r'^help$', program):
+        help_custom()
+
+
+def help_custom():
+    print('\n  [run] lets you try different logic gates')
+    print('\n  [compare] shows truth tables for all logic gates')
+    print('\n  [add] lets you add two numbers by using logic gates')
+    print('\n  [explain] browse explanations of each logic gate')
+    print('')
+    main()
 
 
 def run():
@@ -70,6 +80,8 @@ if __name__ == "__main__":
             run()
         elif re.search(r'^add$', argv[1]):
             add_numbers()
+        elif re.search(r'^subtract$', argv[1]):
+            subtract_numbers(6, 4)
         else:
             print(f'no argument called [{argv[1]}].')
     else:
