@@ -1,13 +1,34 @@
 from sys import argv
 import re
-# dependencies bundled in import file for cleaner code
+
+# local dependencies bundled in import file for cleaner code
 from imports import *
 
 
+'''
+If the script is run w/o additional flags (args) in
+the command-line, then the main function acts as
+a menu.
+
+color_print() is simply a custom print() that allows for easy
+colored print statements.
+
+Un-comment the line below if you prefer the default
+print color of your console.
+
+
+help_custom() is called that way, bc help()
+is a Python reserved keyword (like print()).
+
+'''
+
+
 def main():
-    print('[run] [compare] [add] [subtract] [explain] [help]')
-    program = input('program ')
+    color_print('blue', '[run] [compare] [add] [subtract] [explain] [help]')
+    # print('[run] [compare] [add] [subtract] [explain] [help]')
     
+    program = input('program ')
+
     if re.search(r'^compare$', program):
         compare()
     elif re.search(r'^run$', program):
@@ -56,23 +77,6 @@ def run():
     print('on' if output else 'off')
 
 
-def set_value(value_name):
-    while True:
-        value_string = input(f'{value_name}: ')
-
-        # try to convert to int with exception catch
-        try:
-            value = int(value_string)
-            if value in (0, 1):
-                break
-            else:
-                print('Enter a value of [0, 1]')
-        except:
-            print('Enter valid integer')
-
-    return value
-
-
 if __name__ == "__main__":
     if len(argv) == 2:
         if re.search(r'^compare$', argv[1]):
@@ -87,5 +91,9 @@ if __name__ == "__main__":
             print(f'out: {out}')
         else:
             print(f'no argument called [{argv[1]}].')
+
+    elif len(argv) > 2:
+        color_print('red', 'too many arguments parsed')
+    
     else:
         main()
