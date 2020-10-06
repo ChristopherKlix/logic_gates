@@ -21,19 +21,19 @@ def compare():
     for option in options:
         option.out_and = and_gate(option.a, option.b)
         option.out_or = or_gate(option.a, option.b)
+        option.out_xor = xor_gate(option.a, option.b)
         option.out_nand = nand_gate(option.a, option.b)
         option.out_nor = nor_gate(option.a, option.b)
-        option.out_xor = xor_gate(option.a, option.b)
     
-    print('\n      | and | or  | nand| nor | xor |')
+    print('\n      | and | or  | xor | nand| nor |')
 
     for option in options:
         print(' ', option.a, option.b, '|', end='')
 
         print(' ', option.out_and, ' |', end='')
         print(' ', option.out_or, ' |', end='')
+        print(' ', option.out_xor, ' |', end='')
         print(' ', option.out_nand, ' |', end='')
-        print(' ', option.out_nor, ' |', end='')
-        print(' ', option.out_xor, ' |')
+        print(' ', option.out_nor, ' |')
 
     print()
