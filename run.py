@@ -11,8 +11,9 @@ a menu.
 color_print() is simply a custom print() that allows for easy
 colored print statements.
 
-Un-comment the line below if you prefer the default
-print color of your console.
+Change the color to 'default' if you prefer the default
+print color of your command-line. Or simply change
+it to the default print() function.
 
 
 help_custom() is called that way, bc help()
@@ -23,9 +24,8 @@ is a Python reserved keyword (like print()).
 
 def main():
     color_print('blue', '[try] [compare] [add] [subtract] [explain] [help] [quit]')
-    # print('[try] [compare] [add] [subtract] [explain] [help] [quit]')
     
-    program = input(f'\033[0mprogram ')
+    program = input('program ')
 
     if re.search(r'^compare$', program):
         compare()
