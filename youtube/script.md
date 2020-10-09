@@ -11,7 +11,7 @@ soon as they are online.
 
 ## video series structure
 * [0] Intro
-* [1] Transistors
+* [1] Transistor
 * [2] AND-gate
 * [3] OR-gate
 * [4] XOR-gate
