@@ -41,24 +41,27 @@ def resize_img(file_path, file_name):
     if not os.path.exists(f'{EP_PATH}resized/'):
         os.makedirs(f'{EP_PATH}resized/')
     
-    with Image.open(file_path) as img:
-        print('   file opened')
+    try:
+        with Image.open(file_path) as img:
+            print('   file opened')
 
-        # replace 'ep_0_title.png' with 'ep_0_title'
-        file_name = file_name.replace('.png', '')
+            # replace 'ep_0_title.png' with 'ep_0_title'
+            file_name = file_name.replace('.png', '')
 
-        # resize image
-        img = img.resize(scale_to_height(img.size, UPSCALE_RES), SCALE_MODE)
-        print('   file resized')
+            # resize image
+            img = img.resize(scale_to_height(img.size, UPSCALE_RES), SCALE_MODE)
+            print('   file resized')
 
-        # saving resized image
-        img.save(f'{EP_PATH}resized/{file_name}_2160.png')
-        print('   file saved')
+            # saving resized image
+            img.save(f'{EP_PATH}resized/{file_name}_2160.png')
+            print('   file saved')
 
-    print('   file closed')
+        print('   file closed')
+    except:
+        print('   processing failed')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print('hello')
     print(os.path.dirname(RUN_PATH))
 
